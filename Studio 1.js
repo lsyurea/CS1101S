@@ -27,7 +27,9 @@ function empty_order() {
 }
 
 function add_to_order(prev, combo) {
-    return prev !== 0 ? prev * 10 + combo: combo;
+    // return prev !== 0 ? prev * 10 + combo: combo;
+    prev * 10 + combo;
+    // not necessary to use predicate
 }
 
 function last_combo(combo) {
