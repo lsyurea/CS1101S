@@ -198,7 +198,7 @@ function remove_duplicates(lst) {
 
 /* 
 Time complexity = O(n ^ 2)
-Space complexity = O(n ^ 2)
+Space complexity = O(n)
 */
 
 function makeup_amount(x, coins) {
@@ -215,7 +215,7 @@ function makeup_amount(x, coins) {
 Algorithm where order matters
 
 Time complexity = O(2 ^ n)
-Space complexity = O(2 ^ n)
+Space complexity = O(n)
 where n refers to length of coins
 */
 
@@ -243,7 +243,7 @@ function subsets(xs) {
 
 /* 
 Time complexity = O(2 ^ n)
-Space complexity = O(2 ^ n)
+Space complexity = O(n)
 */
 
 function permutations_1(lst) {
@@ -308,3 +308,4 @@ const flatten = xs => is_null(xs)
 
 
 //note both functions are the same
+
