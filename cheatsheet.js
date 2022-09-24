@@ -278,4 +278,16 @@ Time complexity = O(n * n!)
 Space complexity = O(n * n!)
 */
 
-display_list(insertions(5, list(1, 2, 3, 4)));
+function permutations_2(lst) {
+    return is_null(lst)
+           ? list(null)
+           : accumulate(append,
+                        null,
+                        map(x => insertions(head(lst), x), 
+                            permutations_2(tail(lst))));
+}
+
+/*
+Time complexity = O(n * n!)
+Space complexity = O(n * n!)
+*/
