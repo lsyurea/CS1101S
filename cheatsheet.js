@@ -149,11 +149,7 @@ function modified_filter_tree(f, tree) {
     return rmv_nul(filtered);                         
 }
 
-
-
-display_list(modified_filter_tree(x => !(x === 3), list(list(2, 3, 4), list(3), 3)));
-display_list(filter_tree(x => !(x === 3), list(list(2, 3, 4), list(3), 3)));
-/* 
+/*
 Time complexity = O(n)
 Space complexity = O(n)
 
