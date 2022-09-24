@@ -291,3 +291,20 @@ function permutations_2(lst) {
 Time complexity = O(n * n!)
 Space complexity = O(n * n!)
 */
+
+
+// use of higher order functions
+const flatten_once = (f => f(f))(f => xs => is_null(xs)
+                                            ? null 
+                                            : is_list(head(xs))
+                                            ? append(f(f)(head(xs)), f(f)(tail(xs)))
+                                            : pair(head(xs), f(f)(tail(xs))));
+                                            
+const flatten = xs => is_null(xs)
+                      ? null 
+                      : is_list(head(xs))
+                      ? append(flatten(head(xs)), flatten(tail(xs)))
+                      : pair(head(xs), flatten(tail(xs)));
+
+
+//note both functions are the same
