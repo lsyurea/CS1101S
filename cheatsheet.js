@@ -1,21 +1,3 @@
-function zip(f, lst1, lst2) {
-    return is_null(lst1)
-           ? null 
-           : pair(f(head(lst1), head(lst2)), zip(f, tail(lst1), tail(lst2)));
-}
-
-function queens(n) {
-    return map(x => zip(make_queen, enum_list(1, n), x), 
-               permutations(enum_list(1, n)));
-}
-
-/* 
-size of list is p, and each element in p is of size n
-so time complexity is np
-Time complexity is n * n!
-Space complexity is n * n!
-*/
-
 //consultation questions
 
 //fast power for integer numbers
@@ -49,6 +31,12 @@ Iterative version seems impossible without helper/modifying number of arguments
 Time complexity = 0(log(n))
 Space complexity = O(1)
 */
+function zip(f, lst1, lst2) {
+    return is_null(lst1)
+           ? null 
+           : pair(f(head(lst1), head(lst2)), zip(f, tail(lst1), tail(lst2)));
+}
+
 
 function zip_1(lst1, lst2) {
     return is_null(lst1)
@@ -266,11 +254,25 @@ function permutations_1(lst) {
         return accumulate(append, 
                           null,
                           map(x => map(y => pair(x, y), 
-                                         permutations(remove(x, lst))), 
+                                         permutations_1(remove(x, lst))), 
                               lst));
     }
 }
+
 /*
 Time complexity = O(n * n!)
 Space complexity = O(n * n!)
+
+alternative variant below >>
 */
+
+function insertions(v, lst) {
+    return is_null(lst) 
+           ? list(list(v))
+           : append(list(pair(v, lst)), map(x => pair(head(lst), x), 
+                                     insertions(v, tail(lst))));
+}
+
+// returns a matrix
+
+display_list(insertions(5, list(1, 2, 3, 4)));
