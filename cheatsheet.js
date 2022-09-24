@@ -273,6 +273,9 @@ function insertions(v, lst) {
                                      insertions(v, tail(lst))));
 }
 
-// returns a matrix
+/* 
+Time complexity = O(n * n!)
+Space complexity = O(n * n!)
+*/
 
 display_list(insertions(5, list(1, 2, 3, 4)));
