@@ -1,45 +1,3 @@
-// Type your program in here!
-//queens ADT
-
-const make_queen = pair;
-const r = head;
-const c = tail;
-
-function attack_each_other_diagonally(q1, q2) {
-    return math_abs(r(q1) - r(q2)) === math_abs(c(q1), c(q2));
-}
-
-function attack_any_diagonally(q1, qs) {
-    return accumulate((x, y) => attack_each_other_diagonally(q1, x)
-                        || y,
-                      false,
-                      qs);
-}
-
-function attack_diagonally(qs) {
-    return is_null(qs)
-          ? false
-          : attack_any_diagonally(head(qs), tail(qs)) 
-                || attack_diagonally(tail(qs));
-}
-
-function permutations(xs) {
-    if (is_null(xs)) {
-        return list(null);
-    }
-    else {
-        return accumulate(append,
-                          null,
-                          map(x => map(y => pair(x, y), 
-                                      permutations(remove(x, xs))),
-                              xs));
-    }
-}
-/* 
-space: O(n!)
-time: O(n!)
-*/
-
 function zip(f, lst1, lst2) {
     return is_null(lst1)
            ? null 
@@ -201,7 +159,7 @@ Space complexity = O(n)
 where n is assumed to be the total number of elements
 */
 
-
+//S5 extra
 function every_second(lst) {
     return is_null(lst) || is_null(tail(lst))
            ? null
@@ -226,6 +184,93 @@ function sums(lst) {
 }
 
 /* 
-TIme complexity = O(n)
+Time complexity = O(n)
 Space complexity = O(n)
+*/
+
+//S6
+
+function my_map(f, xs) {
+    return accumulate((x, y) => pair(f(x), y),
+                      null,
+                      xs);
+}
+
+/*
+Time complexity = O(n)
+Space complexity = O(n)
+*/
+
+function remove_duplicates(lst) {
+    return is_null(lst)
+           ? null
+           : pair(head(lst), remove_duplicates(filter(x => !(x === head(lst)),
+                                                      tail(lst))));
+}
+
+/* 
+Time complexity = O(n ^ 2)
+Space complexity = O(n ^ 2)
+*/
+
+function makeup_amount(x, coins) {
+    return x < 0 || is_null(coins)
+           ? null
+           : x === 0
+           ? list(null)
+           : append(makeup_amount(x, tail(coins)), 
+                    map(x => pair(head(coins), x), 
+                        makeup_amount(x - head(coins), tail(coins))));
+}
+
+/*
+Algorithm where order matters
+
+Time complexity = O(2 ^ n)
+Space complexity = O(2 ^ n)
+where n refers to length of coins
+*/
+
+//S6 extra
+
+function remove_duplicates_2(lst) {
+    return accumulate((x, y) => pair(x, filter(z => !(z === x), y)),
+                      null,
+                      lst);
+}
+function remove_duplicates_3(lst) {
+    return accumulate((x, y) => is_null(member(x, y)) 
+                                ? pair(x, y)
+                                : y,
+                      null,
+                      lst);
+}
+
+function subsets(xs) {
+    return is_null(xs) 
+           ? list(null)
+           : append(subsets(tail(xs)), 
+                    map(x => pair(head(xs), x), subsets(tail(xs))));
+}
+
+/* 
+Time complexity = O(2 ^ n)
+Space complexity = O(2 ^ n)
+*/
+
+function permutations_1(lst) {
+    if (is_null(lst)) {
+        return list(null);
+    }
+    else {
+        return accumulate(append, 
+                          null,
+                          map(x => map(y => pair(x, y), 
+                                         permutations(remove(x, lst))), 
+                              lst));
+    }
+}
+/*
+Time complexity = O(n * n!)
+Space complexity = O(n * n!)
 */
