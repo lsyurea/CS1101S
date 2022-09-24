@@ -201,3 +201,31 @@ Space complexity = O(n)
 where n is assumed to be the total number of elements
 */
 
+
+function every_second(lst) {
+    return is_null(lst) || is_null(tail(lst))
+           ? null
+           : pair(head(tail(lst)), every_second(tail(tail(lst))));
+}
+/* 
+Time complexity = O(n)
+Space complexity = O(n)
+*/
+
+function sums(lst) {
+    if (is_null(lst)) {
+        return list(0, 0);
+    }
+    else if (is_null(tail(lst))) {
+        return list(head(lst), 0);
+    }
+    else {
+        const prev = sums(tail(tail(lst)));
+        return list(head(lst) + head(prev), head(tail(lst)) + head(tail(prev)));
+    }
+}
+
+/* 
+TIme complexity = O(n)
+Space complexity = O(n)
+*/
