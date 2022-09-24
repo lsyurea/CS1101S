@@ -98,10 +98,11 @@ Space complexity = O(1)
 */
 
 function multi_zip(matrix) {
-    return is_null(head(head(matrix)))
+    return is_null(head(matrix))
            ? null
            : pair(map(head, matrix), multi_zip(map(tail, matrix)));
 }
+
 /*
 Assumption that the individual matrix length are equal
 
@@ -134,12 +135,24 @@ function filter_tree(f, tree) {
 /*
 Time complexity = O(n)
 Space complexity = O(n)
-best case O(log(n))
 */
 
 function modified_filter_tree(f, tree) {
-    return filter_tree(x => !is_null(x), filter_tree(f, tree));
+    return is_null(tree)
+           ? null
+           : is_list(head(tree)) 
+           ? is_null(head(tree))
+               ? filter_tree(f, tail(tree))
+               : pair(filter_tree(f, head(tree)), filter_tree(f, tail(tree)))
+           : f(head(tree))
+           ? pair(head(tree), filter_tree(f, tail(tree)))
+           : filter_tree(f, tail(tree));
 }
+
+
+
+display_list(modified_filter_tree(x => !(x === 3), list(list(2, 3, 4), list(3), 3)));
+display_list(filter_tree(x => !(x === 3), list(list(2, 3, 4), list(3), 3)));
 /* 
 Time complexity = O(n)
 Space complexity = O(n)
