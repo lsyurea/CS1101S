@@ -138,15 +138,15 @@ Space complexity = O(n)
 */
 
 function modified_filter_tree(f, tree) {
-    return is_null(tree)
-           ? null
-           : is_list(head(tree)) 
-           ? is_null(head(tree))
-               ? filter_tree(f, tail(tree))
-               : pair(filter_tree(f, head(tree)), filter_tree(f, tail(tree)))
-           : f(head(tree))
-           ? pair(head(tree), filter_tree(f, tail(tree)))
-           : filter_tree(f, tail(tree));
+    const filtered = filter_tree(f, tree);
+    const rmv_nul = t => is_null(t)
+                         ? null 
+                         : is_null(head(t))
+                         ? rmv_nul(tail(t))
+                         : is_list(head(t))
+                         ? pair(rmv_nul(head(t)), rmv_nul(tail(t)))
+                         : pair(head(t), rmv_nul(tail(t)));
+    return rmv_nul(filtered);                         
 }
 
 
