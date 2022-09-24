@@ -309,3 +309,13 @@ const flatten = xs => is_null(xs)
 
 //note both functions are the same
 
+//HOF
+const thrice = f => x => f(f(f(x)));
+const zero_repeater = f => x => x;
+const increment_repeater = repeater => f => x => f(repeater(f)(x));
+const decrement_repeater = repeater => 
+                             head(repeater(x => pair(tail(x), 
+                                            increment_repeater(tail(x))))
+                                  (pair(zero_repeater, zero_repeater)));
+                                
+                                  
