@@ -378,6 +378,7 @@ function negate_bst(bst) {
     }
 }
 
+//from right to left
 function accumulate_bst(op, initial, bst) {
     if (is_empty_binary_tree(bst)) {
         return initial;
@@ -390,7 +391,4 @@ function accumulate_bst(op, initial, bst) {
                                                 right_subtree_of(bst))),
                                  left_subtree_of(bst));
     }
-}                                
-//from right to left
-
-function accumulate_bst(op, )
+}  
