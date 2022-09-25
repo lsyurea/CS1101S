@@ -3,12 +3,12 @@
 //fast power for integer numbers
 function fast_power(b, n) {
     return n < 0
-           ? 1 / fast_power(b, - n)
-           : n === 0
-           ? 1
-           : n % 2 === 0
-           ? math_pow(fast_power(b, n/2), 2)
-           : fast_power(b, n - 1) * b;
+          ? 1 / fast_power(b, - n)
+          : n === 0
+          ? 1
+          : n % 2 === 0
+          ? math_pow(fast_power(b, n/2), 2)
+          : fast_power(b, n - 1) * b;
 }
 /*
 Time complexity = O(log(n))
@@ -18,10 +18,10 @@ Space complexity = O(log(n))
 function fast_power_iter(b, n) {
     function helper(res, n, b) {
         return n === 0
-               ? res
-               : n % 2 === 0
-               ? helper(res, n / 2, b * b)
-               : helper(res * b, n - 1, b);
+              ? res
+              : n % 2 === 0
+              ? helper(res, n / 2, b * b)
+              : helper(res * b, n - 1, b);
     }
     return n < 0 ? 1 / helper(1, - n, b) : helper(1, n, b);
 }
@@ -33,15 +33,15 @@ Space complexity = O(1)
 */
 function zip(f, lst1, lst2) {
     return is_null(lst1)
-           ? null 
-           : pair(f(head(lst1), head(lst2)), zip(f, tail(lst1), tail(lst2)));
+          ? null 
+          : pair(f(head(lst1), head(lst2)), zip(f, tail(lst1), tail(lst2)));
 }
 
 
 function zip_1(lst1, lst2) {
     return is_null(lst1)
-           ? null
-           : pair(pair(head(lst1), head(lst2)), zip_1(tail(lst1), tail(lst2)));
+          ? null
+          : pair(pair(head(lst1), head(lst2)), zip_1(tail(lst1), tail(lst2)));
 }
 /* 
 Time complexity = O(n)
@@ -50,9 +50,9 @@ Space complexity = O(n)
 
 function zip1_iter(lst1, lst2) {
     return is_null(lst1)
-           ? lst2
-           : zip1_iter(tail(lst1), 
-                       append(tail(lst2), list(pair(head(lst1), head(lst2)))));
+          ? lst2
+          : zip1_iter(tail(lst1), 
+                      append(tail(lst2), list(pair(head(lst1), head(lst2)))));
 }
 /* 
 Time complexity = O(n ^ 2);
@@ -62,8 +62,8 @@ Space complexity = O(1);
 function zip1_iter_2(lst1, lst2) {
     function helper(res, lst1, lst2) {
         return is_null(lst1) 
-               ? reverse(res)
-               : helper(pair(pair(head(lst1), head(lst2)), res), 
+              ? reverse(res)
+              : helper(pair(pair(head(lst1), head(lst2)), res), 
                         tail(lst1), 
                         tail(lst2));
     }
@@ -87,8 +87,8 @@ Space complexity = O(n)
 function reverse_iter(lst) {
     function helper(res, lst) {
         return is_null(lst) 
-               ? res
-               : helper(pair(head(lst), res), lst);
+              ? res
+              : helper(pair(head(lst), res), lst);
     }
     return helper(null, lst);
 }
@@ -99,8 +99,8 @@ Space complexity = O(1)
 
 function multi_zip(matrix) {
     return is_null(head(matrix))
-           ? null
-           : pair(map(head, matrix), multi_zip(map(tail, matrix)));
+          ? null
+          : pair(map(head, matrix), multi_zip(map(tail, matrix)));
 }
 
 /*
@@ -125,12 +125,12 @@ Space complexity = O(n)
 
 function filter_tree(f, tree) {
     return is_null(tree)
-           ? null
-           : is_list(head(tree))
-           ? pair(filter_tree(f, head(tree)), filter_tree(f, tail(tree)))
-           : f(head(tree))
-           ? pair(head(tree), filter_tree(f, tail(tree)))
-           : filter_tree(f, tail(tree));
+          ? null
+          : is_list(head(tree))
+          ? pair(filter_tree(f, head(tree)), filter_tree(f, tail(tree)))
+          : f(head(tree))
+          ? pair(head(tree), filter_tree(f, tail(tree)))
+          : filter_tree(f, tail(tree));
 }
 /*
 Time complexity = O(n)
@@ -159,8 +159,8 @@ where n is assumed to be the total number of elements
 //S5 extra
 function every_second(lst) {
     return is_null(lst) || is_null(tail(lst))
-           ? null
-           : pair(head(tail(lst)), every_second(tail(tail(lst))));
+          ? null
+          : pair(head(tail(lst)), every_second(tail(tail(lst))));
 }
 /* 
 Time complexity = O(n)
@@ -200,8 +200,8 @@ Space complexity = O(n)
 
 function remove_duplicates(lst) {
     return is_null(lst)
-           ? null
-           : pair(head(lst), remove_duplicates(filter(x => !(x === head(lst)),
+          ? null
+          : pair(head(lst), remove_duplicates(filter(x => !(x === head(lst)),
                                                       tail(lst))));
 }
 
@@ -212,10 +212,10 @@ Space complexity = O(n)
 
 function makeup_amount(x, coins) {
     return x < 0 || is_null(coins)
-           ? null
-           : x === 0
-           ? list(null)
-           : append(makeup_amount(x, tail(coins)), 
+          ? null
+          : x === 0
+          ? list(null)
+          : append(makeup_amount(x, tail(coins)), 
                     map(x => pair(head(coins), x), 
                         makeup_amount(x - head(coins), tail(coins))));
 }
@@ -245,8 +245,8 @@ function remove_duplicates_3(lst) {
 
 function subsets(xs) {
     return is_null(xs) 
-           ? list(null)
-           : append(subsets(tail(xs)), 
+          ? list(null)
+          : append(subsets(tail(xs)), 
                     map(x => pair(head(xs), x), subsets(tail(xs))));
 }
 
@@ -277,8 +277,8 @@ alternative variant below >>
 
 function insertions(v, lst) {
     return is_null(lst) 
-           ? list(list(v))
-           : append(list(pair(v, lst)), map(x => pair(head(lst), x), 
+          ? list(list(v))
+          : append(list(pair(v, lst)), map(x => pair(head(lst), x), 
                                      insertions(v, tail(lst))));
 }
 
@@ -289,8 +289,8 @@ Space complexity = O(n * n!)
 
 function permutations_2(lst) {
     return is_null(lst)
-           ? list(null)
-           : accumulate(append,
+          ? list(null)
+          : accumulate(append,
                         null,
                         map(x => insertions(head(lst), x), 
                             permutations_2(tail(lst))));
@@ -326,5 +326,71 @@ const decrement_repeater = repeater =>
                              head(repeater(x => pair(tail(x), 
                                             increment_repeater(tail(x))))
                                   (pair(zero_repeater, zero_repeater)));
-                                
-                                  
+
+
+//BST abstraction
+const left_subtree_of = bst => head(bst);
+const right_subtree_of = bst => head(tail(tail(bst)));
+const value_of = bst => head(tail(bst));
+const make_empty_binary_tree = () => list(null, null, null);
+const is_empty_binary_tree = bst => equal(bst, make_empty_binary_tree());
+const make_binary_tree_node = (left, value, right) => list(left, value, right);
+const is_binary_tree = bst => !is_list(bst) || !(length(bst) === 3)
+                              ? false
+                              : is_null(left_subtree_of(bst))
+                                  && is_null(right_subtree_of(bst))
+                              ? true
+                              : is_list(left_subtree_of(bst)) 
+                                  && is_list(right_subtree_of(bst))
+                              ? is_binary_tree(left_subtree_of(bst)) && 
+                                  is_binary_tree(right_subtree_of(bst))
+                              : false;
+                              
+const bst = list(list(list(make_empty_binary_tree(), 
+                            1, 
+                            make_empty_binary_tree()), 
+                            2, 
+                            list(make_empty_binary_tree(), 
+                                 3, 
+                                 make_empty_binary_tree())), 
+              4, 
+              list(list(make_empty_binary_tree(), 
+                        5, 
+                        make_empty_binary_tree()), 
+                  6, 
+                  list(list(make_empty_binary_tree(), 
+                            7, 
+                            make_empty_binary_tree()), 
+                       8, 
+                       list(make_empty_binary_tree(), 
+                            9, 
+                            make_empty_binary_tree()))));
+
+
+function negate_bst(bst) {
+    if (is_empty_binary_tree(bst)) {
+        return make_empty_binary_tree();
+    }
+    else {
+        return make_binary_tree_node(negate_bst(right_subtree_of(bst)),
+                                     -1 * value_of(bst),
+                                     negate_bst(left_subtree_of(bst)));
+    }
+}
+
+function accumulate_bst(op, initial, bst) {
+    if (is_empty_binary_tree(bst)) {
+        return initial;
+    }
+    else {
+        return accumulate_bst(op, 
+                              op(value_of(bst), 
+                                 accumulate_bst(op, 
+                                                initial, 
+                                                right_subtree_of(bst))),
+                                 left_subtree_of(bst));
+    }
+}                                
+//from right to left
+
+function accumulate_bst(op, )
