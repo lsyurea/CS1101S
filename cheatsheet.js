@@ -392,3 +392,33 @@ function accumulate_bst(op, initial, bst) {
                                  left_subtree_of(bst));
     }
 }  
+
+//counting pairs to avoid double counting in cycles
+function count_pairs(x) {
+    let res = null;
+    function helper(lst) {
+        if (is_pair(lst) && is_null(member(lst, res))) {
+            res = pair(lst, res);
+            helper(head(lst));
+            helper(tail(lst));
+        }
+    }
+    helper(x);
+    return length(res);
+}
+
+function d_append(xs, ys) {
+    if (is_null(xs)) {
+        return ys;
+    }
+    else {
+        set_tail(xs, d_append(tail(xs), ys));
+        return xs;
+    }
+}
+const A = list(1, 2, 3);
+const B = list(A, A, A);
+const C = d_append(A, A);
+const D = list(A, A);
+
+count_pairs(D);
