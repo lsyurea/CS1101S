@@ -1,5 +1,6 @@
 //in-place sorting
 
+//iterative-recursive hybrid
 function selection_sort(L) {
     if (!is_null(L)) {
         const len = length(L);
@@ -17,7 +18,7 @@ function selection_sort(L) {
 }
 
 
-
+//iterative-recursive hybrid
 function bubble_sort(L) {
     function bubble(xs, end) {
         if (length(xs) > end + 1) {
@@ -38,3 +39,28 @@ function bubble_sort(L) {
 const LL = list(3, 5, 2, 4, 1, 3, 7, 9);
 bubble_sort(LL);
 LL;
+
+//recursive implementation
+function bubble_sort(xs) {
+    function bubble(ls) {
+        if (is_null(ls) || is_null(tail(ls))) {
+            return ls;
+        }
+        const prev = bubble(tail(ls));
+        if (head(ls) > head(prev)) {
+            const temp = head(ls);
+            set_head(ls, head(prev));
+            set_head(prev, temp);
+        }
+        return ls;
+    }
+    
+    if (!is_null(xs) && !is_null(tail(xs))) {
+        bubble(xs);
+        bubble_sort(tail(xs));
+    }
+}
+
+const L = list(1, 4, -9, 2, 5, 3, -7);
+bubble_sort(L);
+L;
