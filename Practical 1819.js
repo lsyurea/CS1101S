@@ -589,48 +589,75 @@ const emapA2b =
 function count_islands(emap) {
 
     // WRITE HERE.
-    const mem = [];
+    const temp = copy_array(emap);
     const r = array_length(emap) - 1;
     const c = array_length(emap[0]) - 1;
+    let islands = 0;
     
-    function read(n, k) {
-        return mem[n] === undefined 
-               ? undefined
-               : mem[n][k];
+    function search(row, column) {
+        if (row > r || column > c 
+                || row < 0 || column < 0 || emap[row][column] === 0) {
+            return undefined;
+        }
+        emap[row][column] = 0;
+        search(row + 1, column);
+        search(row, column + 1);
+        search(row, column - 1);
+        search(row - 1, column);
     }
     
-    function write(n, k, value) {
-        if (mem[n] === undefined) {
-            mem[n] = [];
-        }
-        mem[n][k] = value;
-    }
+    // function bfs(row, column) {
+    //     let queue = list(pair(row, column));
+    //     while (!is_null(stack)) {
+    //         const cur = head(stack);
+    //         const r_c = head(cur);
+    //         const c_c = tail(cur);
+    //         stack = tail(stack);
+    //         if (emap[r_c][c_c] !== 0) {
+    //             emap[r_c][c_c] = 0;
+                
+    //             //appending bottom and right
+    //             if (r_c < r && c_c < c) {
+    //                 stack = append(list(pair(r_c + 1, c_c), pair(r_c, c_c + 1)),
+    //                               stack);
+    //             }
+    //             else if (r_c < r) {
+    //                 stack = pair(pair(r_c + 1, c_c), stack);
+    //             }
+    //             else if (c_c < c) {
+    //                 stack = pair(pair(r_c, c_c + 1), stack);
+    //             }
+    //             else {}
+                
+    //             //appending top and left
+    //             if (r_c > 0 && c_c > 0) {
+    //                 stack = append(list(pair(r_c - 1, c_c), pair(r_c, c_c - 1)),
+    //                               stack);
+    //             }
+    //             else if (r_c > 0) {
+    //                 stack = pair(pair(r_c - 1, c_c), stack);
+    //             }
+    //             else if (c_c > 0) {
+    //                 stack = pair(pair(r_c, c_c - 1), stack);
+    //             }
+    //             else {}
+            
+    //         }
+    //     }
+    // }
     
     
-    function travel(row, column) {
-        if (row < 0 || column < 0) {
-            return 0;
-        }
-        if (read(row, column) !== undefined) {
-            return travel(row - 1, column) + travel(row, column - 1);
-        }
-        
-        write(row, column, 1);
-        const res = travel(row - 1, column) + travel(row, column - 1);
-        return emap[row][column] !== 0
-               ? row === r && column === c
-                 ? 1 + res
-                 : row === r && emap[row][column + 1] === 0
-                 ? 1 + res
-                 : column === c && emap[row + 1][column] === 0
-                 ? 1 + res
-                 : emap[row][column + 1] === 0 && emap[row + 1][column] === 0
-                 ? 1 + res
-                 : res
-               : res;
-        
+    for (let i = 0; i < r + 1; i = i + 1) {
+        for (let t = 0; t < c + 1; t = t + 1) {
+            if (emap[i][t] !== 0) {
+                islands = islands + 1;
+                search(i, t);
+            }
+        }    
     }
-    return travel(r, c);
+    return islands;
+    
+
 }
 
 // TASK 3B TESTS
@@ -657,7 +684,7 @@ assert("3B_5", () => count_islands([[0,1], [0,0]]), 1, []);
 assert("3B_6", () => count_islands([[2,0], [0,1]]), 2, []);
 assert("3B_7", () => count_islands(emapB1), 6, []);
 assert("3B_8", () => count_islands(emapB2), 5, []);
-display(count_islands(emapB2));
+
 
 //===============================================================
 
