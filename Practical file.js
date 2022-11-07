@@ -68,7 +68,16 @@ function array_sort(a) {
 // Lists
 //----------------------------------------------------------------
 function sort(lst) {
-    
+    function find_min(lst) {
+        return accumulate((x, y) => x < y ? x : y,
+                          head(lst),
+                          tail(lst));
+    }
+    if (is_null(lst)) {
+        return lst;
+    }
+    const min = find_min(lst);
+    return pair(min, sort(remove(min, lst)));
 }
 //----------------------------------------------------------------
 // returns a permutation of the list
@@ -191,6 +200,8 @@ function streams_to_list(s, n) {
     }
     return pair(head(s), streams_to_list(stream_tail(s), n - 1));
 }
+
+
 // Data structures
 //----------------------------------------------------------------
 
