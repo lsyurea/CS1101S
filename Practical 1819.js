@@ -430,47 +430,49 @@ function build_2nd_largest_int(digits) {
 function build_nth_largest_int(digits, n) {
 
     // WRITE HERE.
-    sort_ascending(digits);
-    const len = array_length(digits);
-    let count = 1;
-    for (let i = 1; i < len; i = i + 1) {
-        if (digits[i] > digits[i - 1] && count < n) {
-            swap(digits, i - 1, i);
-            count = count + 1;
+    const S = copy_array(digits);
+    sort_ascending(S);
+    reverse_array(S);
+    function permutations(lst) {
+        if (is_null(lst)) {
+            return list(null);
         }
+        return accumulate(append, 
+                          null,
+                          map(x => (map(y => pair(x, y), 
+                                        permutations(remove(x, lst)))),
+                              lst));
     }
-    let res = '';
-    for (let i = 0; i < array_length(digits); i = i + 1) {
-        res = stringify(digits[i]) + res;
-    }
-    display(res);
-    return res;
+    const res = permutations(array_to_list(S));
+    return digits_to_string(list_to_array(list_ref(res, 
+                                                   math_min(length(res), n) - 1)));
+                                                     
 }
-//wrong/ error
+build_nth_largest_int([1,2,4,3], 1);
 
 // TASK 2C TESTS
-// assert("2C_1", () => build_nth_largest_int([1,2,4,3], 1),
-//     "4321", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_2", () => build_nth_largest_int([3,1,4,2], 2),
-//     "4312", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_3", () => build_nth_largest_int([3,1,4,2], 10),
-//     "3214", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_4", () => build_nth_largest_int([1,3,4,2], 18),
-//     "2134", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_5", () => build_nth_largest_int([3,1,4,2], 24),
-//     "1234", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_6", () => build_nth_largest_int([4,3,2,1], 28),
-//     "1234", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_7", () => build_nth_largest_int([5,3,7], 1),
-//     "753", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_8", () => build_nth_largest_int([3,5,7], 4),
-//     "537", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_9", () => build_nth_largest_int([5,3,7], 6),
-//     "357", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_10", () => build_nth_largest_int([5,3,7], 10),
-//     "357", ["build_largest_int", "build_2nd_largest_int"]);
-// assert("2C_11", () => build_nth_largest_int([5], 10),
-//     "5", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_1", () => build_nth_largest_int([1,2,4,3], 1),
+    "4321", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_2", () => build_nth_largest_int([3,1,4,2], 2),
+    "4312", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_3", () => build_nth_largest_int([3,1,4,2], 10),
+    "3214", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_4", () => build_nth_largest_int([1,3,4,2], 18),
+    "2134", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_5", () => build_nth_largest_int([3,1,4,2], 24),
+    "1234", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_6", () => build_nth_largest_int([4,3,2,1], 28),
+    "1234", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_7", () => build_nth_largest_int([5,3,7], 1),
+    "753", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_8", () => build_nth_largest_int([3,5,7], 4),
+    "537", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_9", () => build_nth_largest_int([5,3,7], 6),
+    "357", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_10", () => build_nth_largest_int([5,3,7], 10),
+    "357", ["build_largest_int", "build_2nd_largest_int"]);
+assert("2C_11", () => build_nth_largest_int([5], 10),
+    "5", ["build_largest_int", "build_2nd_largest_int"]);
 
 
 //===============================================================
@@ -676,15 +678,14 @@ const emapB2 =
  [1, 1, 2, 0, 0, 0, 0, 0],
  [1, 0, 1, 0, 0, 1, 2, 3],
  [1, 3, 2, 1, 1, 0, 1, 1]]; // 5 islands
-assert("3B_1", () => count_islands([[0]]), 0, []);
-assert("3B_2", () => count_islands([[1]]), 1, []);
-assert("3B_3", () => count_islands([[0,0], [0,0]]), 0, []);
-assert("3B_4", () => count_islands([[2,1], [1,3]]), 1, []);
-assert("3B_5", () => count_islands([[0,1], [0,0]]), 1, []);
-assert("3B_6", () => count_islands([[2,0], [0,1]]), 2, []);
-assert("3B_7", () => count_islands(emapB1), 6, []);
-assert("3B_8", () => count_islands(emapB2), 5, []);
+// assert("3B_1", () => count_islands([[0]]), 0, []);
+// assert("3B_2", () => count_islands([[1]]), 1, []);
+// assert("3B_3", () => count_islands([[0,0], [0,0]]), 0, []);
+// assert("3B_4", () => count_islands([[2,1], [1,3]]), 1, []);
+// assert("3B_5", () => count_islands([[0,1], [0,0]]), 1, []);
+// assert("3B_6", () => count_islands([[2,0], [0,1]]), 2, []);
+// assert("3B_7", () => count_islands(emapB1), 6, []);
+// assert("3B_8", () => count_islands(emapB2), 5, []);
 
 
 //===============================================================
-
