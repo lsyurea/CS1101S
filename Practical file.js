@@ -184,6 +184,13 @@ function list_to_streams(lst) {
     return pair(head(lst), () => list_to_streams(tail(lst)));
 }
 
+//creates a list of streams up to nth element
+function streams_to_list(s, n) {
+    if (is_null(s) || n === 0) {
+        return null;
+    }
+    return pair(head(s), streams_to_list(stream_tail(s), n - 1));
+}
 // Data structures
 //----------------------------------------------------------------
 
